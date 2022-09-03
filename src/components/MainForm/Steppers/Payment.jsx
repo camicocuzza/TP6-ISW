@@ -14,7 +14,7 @@ import MaskedInput from 'react-text-mask';
 import createAutoCorrectedDatePipe from 'text-mask-addons/dist/createAutoCorrectedDatePipe';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMoneyBillAlt, faCreditCard } from '@fortawesome/free-solid-svg-icons';
-import { faCcVisa } from '@fortawesome/free-brands-svg-icons';
+import { faCcVisa, faCcMastercard } from '@fortawesome/free-brands-svg-icons';
 import PropTypes from 'prop-types';
 
 const useStyles = makeStyles((theme) => ({
@@ -104,16 +104,12 @@ const CVVMask = (props) => {
 CVVMask.propTypes = {
   inputRef: PropTypes.any.isRequired,
 };
-const Payment = ({ orderData, handleChange, errors, touched, setAmount, amount, setEfectivo, efectivo }) => {
+const Payment = ({ orderData, handleChange, errors, touched,setAmount,amount }) => {
   const theme = useTheme();
   const classes = useStyles();
  
   const handleChangeAmount = (e) =>{
     setAmount(e.target.value)
-  }
-
-  const handleChangeFormaPago = (e) =>{
-    setEfectivo(e.target.value)
   }
 
   return (
@@ -146,7 +142,7 @@ const Payment = ({ orderData, handleChange, errors, touched, setAmount, amount, 
             value={orderData.cash}
             onChange={handleChange}
           >
-            <MenuItem value={true}>
+            <MenuItem value>
               <FontAwesomeIcon
                 style={{ marginRight: 5 }}
                 icon={faMoneyBillAlt}
@@ -165,7 +161,7 @@ const Payment = ({ orderData, handleChange, errors, touched, setAmount, amount, 
           </Select>
         </Grid>
       </Grid>
-      {!efectivo ? (
+      {!orderData.cash ? (
         <Grid container spacing={3}>
           <Grid item xs={12} md={12}>
             <TextField
@@ -184,7 +180,7 @@ const Payment = ({ orderData, handleChange, errors, touched, setAmount, amount, 
               id="cardNumber"
               error={touched.cardNumber && Boolean(errors.cardNumber)}
               label="Número de tarjeta"
-              helperText="XXXX XXXX XXXX XXXX"
+              helperText="4XXX XXXX XXXX XXXX"
               onChange={handleChange}
               value={orderData.cardNumber}
               fullWidth
@@ -193,6 +189,8 @@ const Payment = ({ orderData, handleChange, errors, touched, setAmount, amount, 
               }}
             />
             <FontAwesomeIcon size="2x" icon={faCcVisa} color={theme.palette.secondary.main} />
+            <FontAwesomeIcon size="2x" icon={faCcMastercard} color={theme.palette.secondary.main} />
+
           </Grid>
           <Grid item xs={12} md={6}>
             <TextField
@@ -255,7 +253,7 @@ const Payment = ({ orderData, handleChange, errors, touched, setAmount, amount, 
           </Grid>
         </Grid>
       )}
-      {amount < (orderData.precioAcumulado+orderData.precioServicio) && efectivo?(
+      {amount < (orderData.precioAcumulado+orderData.precioServicio) ?(
        <Grid container spacing={3}>
          <Grid item xs={12} md={6}>
          <Typography variant="h7" gutterBottom className={classes.title}>
