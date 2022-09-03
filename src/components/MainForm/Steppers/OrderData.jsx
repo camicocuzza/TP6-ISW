@@ -1,10 +1,11 @@
 import React from 'react';
-import { Typography, Grid, TextField, InputLabel ,MenuItem,Button} from '@material-ui/core';
+import { Typography, Grid, TextField, InputLabel ,MenuItem,Button} from '@mui/material';
 import { makeStyles } from '@material-ui/core/styles';
 import { PropTypes } from 'prop-types';
+import { useState } from 'react';
 
 
-export const comercios = ['Adidas', '47street', 'oaxaca'];
+export const comercios = ['Adidas', '47street', 'Oaxaca'];
 export const productosAdidas = ['questar flow', 'nmd_r1', 'hoops 2.0','daily 3.0'];
 export const productos47Street = ['Campera Berlin', 'Campera E. kala', 'Canguro basic relax'];
 export const productosOaxaca = ['Tacos', 'Lomos 2x1', 'Fajitas','Chidas','Nacho oaxaca'];
@@ -24,8 +25,18 @@ const useStyles = makeStyles((theme) => ({
 
 const OrderData = ({ orderData, handleChange, touched, errors, setFieldValue,setArrayNoVacio, setPrecioAcumulado}) => {
   const classes = useStyles();
+  const [isDisabled, setIsDisabled] = useState(false);
 
   const agregarAlCarrito = () => {
+    if(!orderData.producto)
+    {
+      console.log(orderData.producto)
+      console.log('No producto seleccionado')
+      return;
+    }
+    setIsDisabled(true)
+    console.log(isDisabled)
+
     if(orderData.producto === productosAdidas[0]){
       orderData.precio = preciosAdidas[0];
       orderData.precioAcumulado += (orderData.precio * orderData.cantidad)
@@ -88,7 +99,7 @@ const OrderData = ({ orderData, handleChange, touched, errors, setFieldValue,set
     }
  
   setFieldValue("");
-  orderData.comercio="";
+  // orderData.comercio="";
   orderData.producto="";
   orderData.cantidad=1;
   setArrayNoVacio(true);
@@ -109,6 +120,7 @@ const OrderData = ({ orderData, handleChange, touched, errors, setFieldValue,set
             error={touched.comercio && Boolean(errors.comercio)}
             label="Seleccione el comercio adherido"
             value={orderData.comercio}
+            disabled = {isDisabled}
             onChange={(e) => {
               handleChange(e);
             }}
@@ -151,7 +163,7 @@ const OrderData = ({ orderData, handleChange, touched, errors, setFieldValue,set
             helperText={touched.cantidad && errors.cantidad}
             value={orderData.cantidad}
             onChange={handleChange}
-            fullWidth
+            fullWidth            
           />
         </Grid>  
         
@@ -217,7 +229,7 @@ const OrderData = ({ orderData, handleChange, touched, errors, setFieldValue,set
           
           </>
             ):(null)}
-            {orderData.comercio ==='oaxaca' ?(
+            {orderData.comercio ==='Oaxaca' ?(
               <>
              <Grid item xs={12}>
              <TextField
