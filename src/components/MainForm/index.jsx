@@ -60,7 +60,7 @@ const initialOrderData = {
   immediately: true,
   date: new Date(),
   cash: true,
-  amount: 10000,
+  amount: '',
   cardNumber: '',
   cardName: '',
   expDate: '',
@@ -239,7 +239,7 @@ const MainForm = () => {
     setActiveStep(0);
     setArrayNoVacio(false);
     setPrecioAcumulado(0);
-    setAmount(precioAcumulado)
+    setAmount('')
 
   };
 
@@ -311,13 +311,13 @@ const MainForm = () => {
                 </Step>
               ))}
             </Stepper>
-            <Button
+            {/* <Button onClick={() => handleOtroPedido()} 
               variant="contained"
               color="error"
               className={classes.button}
             >
               Cancelar pedido
-            </Button>
+            </Button> */}
             
           </>
         )}
