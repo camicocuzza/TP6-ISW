@@ -149,6 +149,7 @@ const MainForm = () => {
   const [precioAcumulado, setPrecioAcumulado] = useState(0);
   const [amount, setAmount] = useState();
   const [orderData, setOrderData] = useState(initialOrderData);
+  const [efectivo, setEfectivo] = useState(true);
 
   const handleSelectedDate = (e) => {
     setOrderData((prevState) => ({ ...prevState, date: e }));
@@ -161,10 +162,21 @@ const MainForm = () => {
       setActiveStep(activeStep + 1);
     }
     if (activeStep === 1) {
-      setActiveStep(activeStep + 1);
+      setActiveStep(activeStep + 1);     
     }
-    if (activeStep === 2 && precioAcumulado <= amount) {
+    if (activeStep === 2){
+      console.log(efectivo)
+    }
+    if (activeStep === 2 && efectivo){
+      console.log('efectivo')
+    }
+    if (activeStep === 2 && !efectivo){
+      console.log('tarjeta')
+    }
+    if ((activeStep === 2 && efectivo && precioAcumulado <= amount) || (activeStep === 2 && !efectivo)) {
       setActiveStep(activeStep + 1);
+      console.log(efectivo)
+      console.log("orderData.cash")
     }
     if (activeStep === 3) {
       setActiveStep(activeStep + 1);
@@ -224,8 +236,10 @@ const MainForm = () => {
             errors={errors}
             touched={touched}
             handleChange={handleChange}
-            setAmount={setAmount}
+            setAmount={setAmount}            
             amount={amount}
+            setEfectivo={setEfectivo}
+            efectivo={efectivo}
           />
         );
       case 3:
@@ -239,6 +253,8 @@ const MainForm = () => {
     setActiveStep(0);
     setArrayNoVacio(false);
     setPrecioAcumulado(0);
+    setAmount(0)
+
   };
 
   return (
