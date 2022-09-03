@@ -13,7 +13,7 @@ import { DateTimePicker } from '@material-ui/pickers';
 import PropTypes from 'prop-types';
 
 
-export const cities = ['Córdoba','Río Ceballos', 'Río primero', 'Río segundo', 'Río tercero', 'Río cuarto', 'Villa Allende','Villa Carlos Paz','Villa General Belgrano'];
+export const cities = ['Córdoba', 'La Calera', 'Villa Allende'];
 
 const useStyles = makeStyles((theme) => ({
   fileLabel: {
