@@ -42,6 +42,8 @@ const useStyles = makeStyles((theme) => ({
     marginLeft: theme.spacing(1),
   },
 }));
+const oldDate = new Date();
+const newDate = new Date(oldDate.setMinutes(oldDate.getMinutes() + 30)) ;
 
 const initialOrderData = {
   comercio: '',
@@ -57,8 +59,7 @@ const initialOrderData = {
   referenceDelivery: '',
   mapActive: false,
   immediately: true,
-  date: new Date(),
-  cash: true,
+  date: newDate,
   amount: '',
   cardNumber: '',
   cardName: '',
@@ -81,11 +82,11 @@ const MainForm = () => {
     yup.object().shape({
       comercio: yup.string().required("Seleccione un comercio"),
       producto: yup.string(),
-      cantidad: yup.number().positive("Debe ser un numero positivo").min(1).integer("Debe ser un numero entero"),
+      cantidad: yup.number().positive("Debe ser un numero positivo").min(1, "Debe ingresar como mínimo 1").integer("Debe ser un numero entero"),
     }),
     yup.object().shape({
-      addressDelivery: yup.string().min(1, 'Ingrese número válido').required("Debe colocar una calle."),
-      numberDelivery: yup.number().required("Debe colocar número."),
+      addressDelivery: yup.string().required("Debe colocar una calle."),
+      numberDelivery: yup.number().required("Debe colocar número.").positive('Ingrese número válido'),
       cityDelivery: yup.string().required("Debe seleccionar una ciudad."),
       referenceDelivery: yup.string(),
       immediately: yup.boolean(),
@@ -98,7 +99,8 @@ const MainForm = () => {
       cash: yup.boolean().required(),
       amount: yup.number().when('cash', {
         is: true,
-        then: yup.number().min(precioAcumulado+500,'No le alcanza para pagar (mínimo $' + parseInt(precioAcumulado+500) + ')').required('El monto es requerido'),
+        then: yup.number().min(precioAcumulado+500,'No le alcanza para pagar (mínimo $' + parseInt(precioAcumulado+500) + ')')
+        .max(precioAcumulado+500+1000,'El monto ingresado es muy elevado (máximo $' + parseInt(precioAcumulado+500+1000) + ')').required('El monto es requerido'),
       }),
       cardNumber: yup.string().when('cash', {
         is: false,
@@ -156,6 +158,8 @@ const MainForm = () => {
 
 
   const handleNext = () => {
+    
+    
     if (activeStep === 0 && arrayNoVacio === true) {
       setActiveStep(activeStep + 1);
     }
