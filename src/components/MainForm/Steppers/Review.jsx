@@ -68,15 +68,16 @@ const Review = ({ orderData, amount}) => {
             </>
           ) : (
             <>
-              <Typography gutterBottom>Tarjeta de Crédito Visa</Typography>
+              <Typography gutterBottom>Tarjeta de Crédito</Typography>
               <Typography gutterBottom>{`Titular: ${orderData.cardName}`}</Typography>
               <Typography gutterBottom>
-                {`Número: 4XXX-XXXX-XXXX-${orderData.cardNumber.substr(
+                {`Número: XXXX-XXXX-XXXX-${orderData.cardNumber.substr(
                   orderData.cardNumber.length - 4,
                 )}`}
               </Typography>
-              <Typography gutterBottom>{`Fecha de Vencimiento: ${orderData.expDate}`}</Typography>
+              <Typography gutterBottom>{`Fecha de Vencimiento: ${orderData.expDate}`}</Typography>            
             </>
+            
           )}
         </Grid>
       </Grid>

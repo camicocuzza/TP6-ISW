@@ -45,12 +45,12 @@ const useStyles = makeStyles((theme) => ({
 
 const initialOrderData = {
   comercio: '',
-  carrito:[],
-  producto:'',
-  precio:0,
-  precioServicio:500,
-  cantidad:1,
-  precioAcumulado:0,
+  carrito: [],
+  producto: '',
+  precio: 0,
+  precioServicio: 500,
+  cantidad: 1,
+  precioAcumulado: 0,
   addressDelivery: '',
   numberDelivery: '',
   cityDelivery: '',
@@ -77,13 +77,13 @@ const validationSchema = [
   }),
   yup.object().shape({
     addressDelivery: yup.string().required("Debe colocar una calle."),
-    numberDelivery: yup.number(),
+    numberDelivery: yup.number().required("Debe colocar número."),
     cityDelivery: yup.string().required("Debe seleccionar una ciudad."),
     referenceDelivery: yup.string(),
     immediately: yup.boolean(),
     date: yup.date().when('immediately', {
       is: false,
-      then: yup.date().min(new Date(),"La fecha y hora deben ser mayores a la fecha y hora actuales.").required(),
+      then: yup.date().min(new Date(), "La fecha y hora deben ser mayores a la fecha y hora actuales.").required(),
     }),
   }),
   yup.object().shape({
@@ -155,21 +155,21 @@ const MainForm = () => {
   };
 
 
-  const handleNext = () => {   
-     if(activeStep === 0  && arrayNoVacio === true){
-     setActiveStep(activeStep + 1);
-    }
-    if(activeStep === 1){
+  const handleNext = () => {
+    if (activeStep === 0 && arrayNoVacio === true) {
       setActiveStep(activeStep + 1);
     }
-    if(activeStep === 2  && precioAcumulado <= amount){
-      setActiveStep(activeStep + 1);
-     }
-     if(activeStep === 3){
+    if (activeStep === 1) {
       setActiveStep(activeStep + 1);
     }
-    console.log("Acumulado: "+precioAcumulado);
-    console.log("Amount: "+amount);
+    if (activeStep === 2 && precioAcumulado <= amount) {
+      setActiveStep(activeStep + 1);
+    }
+    if (activeStep === 3) {
+      setActiveStep(activeStep + 1);
+    }
+    console.log("Acumulado: " + precioAcumulado);
+    console.log("Amount: " + amount);
   };
 
   const handleBack = () => {
@@ -228,10 +228,18 @@ const MainForm = () => {
           />
         );
       case 3:
-        return <Review orderData={values}  amount={amount} />;
+        return <Review orderData={values} amount={amount} />;
       default:
         throw new Error('Unknown step');
     }
+  };
+
+  const handleOtroPedido = () => {
+    setActiveStep(0);
+    setArrayNoVacio(false);
+    setPrecioAcumulado(0);
+    setAmount('')
+
   };
 
   return (
@@ -255,25 +263,25 @@ const MainForm = () => {
               </Grid>
             </Grid>
             <div className={classes.buttons}>
-              <Button onClick={() => setActiveStep(0)} className={classes.button}>
+              <Button onClick={() => handleOtroPedido()} className={classes.button}>
                 Realizar otro pedido
               </Button>
             </div>
           </>
         ) : (
-          <>
+          <><br/><br/>
             <Typography component="h1" variant="h5" align="center" gutterBottom>
               <b> Pedí a tu comercio adherido favorito</b>
             </Typography>
-            <Typography variant="body1" align="center" gutterBottom>
-              No te quedes con las ganas!
+            <Typography component="h1" variant="h5" align="center" gutterBottom>
+              ¡No te quedes con las ganas!
             </Typography>
             <Stepper activeStep={activeStep} orientation="vertical" className={classes.stepper}>
               {steps.map((label) => (
                 <Step key={label}>
                   <StepLabel>{label}</StepLabel>
                   <StepContent>
-                    <>
+                    <>                   
                       <form onSubmit={handleSubmit}>
                         {getStepContent(activeStep)}
                         <br/>
@@ -289,17 +297,26 @@ const MainForm = () => {
                             type="submit"
                             variant="contained"
                             color="primary"
-                            className={classes.button}
                           >
                             {activeStep === steps.length - 1 ? 'Confirmar' : 'Siguiente'}
                           </Button>
+
                         </div>
+
                       </form>
                     </>
                   </StepContent>
                 </Step>
               ))}
             </Stepper>
+            {/* <Button onClick={() => handleOtroPedido()} 
+              variant="contained"
+              color="error"
+              className={classes.button}
+            >
+              Cancelar pedido
+            </Button> */}
+            
           </>
         )}
       </>

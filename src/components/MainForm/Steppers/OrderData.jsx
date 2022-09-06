@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 import { Typography, Grid, TextField, InputLabel, MenuItem, Button } from '@mui/material';
 import { makeStyles } from '@material-ui/core/styles';
 import { PropTypes } from 'prop-types';
+import { useState } from 'react';
 
 
 export const comercios = ['Adidas', '47street', 'Oaxaca'];
@@ -24,6 +25,7 @@ const useStyles = makeStyles((theme) => ({
 
 const OrderData = ({ orderData, handleChange, touched, errors, setFieldValue, setArrayNoVacio, setPrecioAcumulado }) => {
   const classes = useStyles();
+  const [isDisabled, setIsDisabled] = useState(false);
 
   const [isDisabled, setIsDisabled] = useState(false);
 

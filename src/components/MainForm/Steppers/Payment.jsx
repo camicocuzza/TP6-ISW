@@ -141,7 +141,7 @@ const Payment = ({ orderData, handleChange, errors, touched,setAmount,amount }) 
             value={orderData.cash}
             onChange={handleChange}
           >
-            <MenuItem value>
+            <MenuItem value={true}>
               <FontAwesomeIcon
                 style={{ marginRight: 5 }}
                 icon={faMoneyBillAlt}
