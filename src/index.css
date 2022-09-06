@@ -10,3 +10,6 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
 }
 
+.css-9npbnl-MuiFormLabel-root-MuiInputLabel-root {
+  overflow: visible !important;
+}

@@ -5,8 +5,7 @@ import {
   TextField,
   InputLabel,
   Select,
-  MenuItem,
-  InputAdornment,
+  MenuItem,  
   useTheme,
 } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
@@ -107,10 +106,6 @@ CVVMask.propTypes = {
 const Payment = ({ orderData, handleChange, errors, touched,setAmount,amount }) => {
   const theme = useTheme();
   const classes = useStyles();
- 
-  const handleChangeAmount = (e) =>{
-    setAmount(e.target.value)
-  }
 
   return (
     <>
@@ -180,7 +175,7 @@ const Payment = ({ orderData, handleChange, errors, touched,setAmount,amount }) 
               id="cardNumber"
               error={touched.cardNumber && Boolean(errors.cardNumber)}
               label="Número de tarjeta"
-              helperText="XXXX XXXX XXXX XXXX"
+              placeholder="XXXX XXXX XXXX XXXX"
               onChange={handleChange}
               value={orderData.cardNumber}
               fullWidth
@@ -235,11 +230,14 @@ const Payment = ({ orderData, handleChange, errors, touched,setAmount,amount }) 
       ) : (
         <Grid container spacing={3}>
           <Grid item xs={12} md={6}>
-           Se realizará el cobro cuando se entregue el pedido a domicilio.
+          <Typography component="h7" variant="h7" align="center" gutterBottom>
+          Se realizará el cobro a domicilio.
+            </Typography>
+           
           </Grid>
         </Grid>
       )}
-      {amount < (orderData.precioAcumulado+orderData.precioServicio) ?(
+      {/* {amount < (orderData.precioAcumulado+orderData.precioServicio) ?(
        <Grid container spacing={3}>
          <Grid item xs={12} md={6}>
          <Typography variant="h7" gutterBottom className={classes.title}>
@@ -247,7 +245,7 @@ const Payment = ({ orderData, handleChange, errors, touched,setAmount,amount }) 
         </Typography>
          </Grid>
         </Grid>
-      ):(null)}
+      ):(null)} */}
     </>
   );
 };

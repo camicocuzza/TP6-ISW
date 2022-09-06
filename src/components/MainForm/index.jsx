@@ -162,7 +162,7 @@ const MainForm = () => {
     if (activeStep === 1) {
       setActiveStep(activeStep + 1);
     }
-    if (activeStep === 2 && precioAcumulado <= amount) {
+    if (activeStep === 2) {
       setActiveStep(activeStep + 1);
     }
     if (activeStep === 3) {
@@ -200,8 +200,11 @@ const MainForm = () => {
             errors={errors}
             touched={touched}
             handleSelectedDate={handleSelectedDate}
+            arrayNoVacio={arrayNoVacio}
             setArrayNoVacio={setArrayNoVacio}
             setPrecioAcumulado={setPrecioAcumulado}
+            // isDisabled{isDisabled}
+            // setIsDisabled{setIsDisabled}
           />
         );
       case 1:
@@ -250,7 +253,7 @@ const MainForm = () => {
             <Grid container direction="column" alignItems="center" justify="center">
               <Grid item>
                 <Typography variant="h5" align="center" gutterBottom>
-                  Gracias por realizar tu pedido!
+                  ¡Gracias por realizar tu pedido!
                 </Typography>
               </Grid>
               <Grid item>
@@ -258,7 +261,7 @@ const MainForm = () => {
               </Grid>
               <Grid item>
                 <Typography variant="subtitle1" align="center">
-                  Tu número de pedido es: 5738. Muchas Gracias por su compra.
+                  Gracias por su compra. Su pedido está siendo preparado!
                 </Typography>
               </Grid>
             </Grid>
@@ -289,7 +292,7 @@ const MainForm = () => {
                           {activeStep !== 0 && (
                             <>
                             <Button onClick={handleBack} className={classes.button}>
-                              Atras
+                              ATRÁS
                             </Button>
                             </>
                           )}

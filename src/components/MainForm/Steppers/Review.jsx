@@ -1,7 +1,11 @@
 import React from 'react';
-import { Typography, Grid,InputLabel } from '@mui/material';
+import { Typography, Grid, InputLabel } from '@mui/material';
+import { useTheme } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import PropTypes from 'prop-types';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCcVisa, faCcMastercard } from '@fortawesome/free-brands-svg-icons';
+
 
 const useStyles = makeStyles((theme) => ({
   title: {
@@ -9,24 +13,25 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Review = ({ orderData, amount}) => {
+const Review = ({ orderData, amount }) => {
+  const theme = useTheme();
   const classes = useStyles();
   return (
     <>
       <Typography variant="h5" gutterBottom>
         Resumen del pedido
       </Typography>
-        <Typography variant="h6" gutterBottom className={classes.title}>
-            Productos en Carrito
-          </Typography>
-          <Typography gutterBottom>
-          {orderData.carrito.map((carr) => (
-              <InputLabel value={carr}>{carr}</InputLabel>
-            ))}
-          </Typography>
-          <Typography variant="h7" gutterBottom className={classes.title}>
-           Total a pagar: ${orderData.precioAcumulado+orderData.precioServicio}
-        </Typography>
+      <Typography variant="h6" gutterBottom className={classes.title}>
+        Productos en Carrito
+      </Typography>
+      <Typography gutterBottom>
+        {orderData.carrito.map((carr) => (
+          <InputLabel value={carr}>{carr}</InputLabel>
+        ))}
+      </Typography>
+      <Typography variant="h7" gutterBottom className={classes.title}>
+        Total a pagar: ${orderData.precioAcumulado + orderData.precioServicio}
+      </Typography>
       <Typography gutterBottom></Typography>
       <Grid container spacing={2}>
         <Grid item xs={12} sm={6}>
@@ -63,8 +68,8 @@ const Review = ({ orderData, amount}) => {
           </Typography>
           {orderData.cash ? (
             <>
-            <Typography gutterBottom>{`Efectivo: $${amount}`}</Typography>
-            <Typography gutterBottom>{`Vuelto: $${amount - (orderData.precioAcumulado+orderData.precioServicio)}`}</Typography>
+              <Typography gutterBottom>{`Efectivo`}</Typography>
+              {/* <Typography gutterBottom>{`Vuelto: $${amount - (orderData.precioAcumulado+orderData.precioServicio)}`}</Typography> */}
             </>
           ) : (
             <>
@@ -74,10 +79,15 @@ const Review = ({ orderData, amount}) => {
                 {`Número: XXXX-XXXX-XXXX-${orderData.cardNumber.substr(
                   orderData.cardNumber.length - 4,
                 )}`}
+                {orderData.cardNumber.substr(0, 1) === '4' ? (
+                  <FontAwesomeIcon size="3x" icon={faCcVisa} color={theme.palette.secondary.main} />
+                ) : (
+                  <FontAwesomeIcon size="3x" icon={faCcMastercard} color={theme.palette.secondary.main} />
+                )}
               </Typography>
-              <Typography gutterBottom>{`Fecha de Vencimiento: ${orderData.expDate}`}</Typography>            
+              <Typography gutterBottom>{`Fecha de Vencimiento: ${orderData.expDate}`}</Typography>
             </>
-            
+
           )}
         </Grid>
       </Grid>
