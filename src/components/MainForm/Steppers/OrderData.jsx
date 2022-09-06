@@ -39,8 +39,9 @@ const OrderData = ({ orderData, handleChange, touched, errors, setFieldValue, ar
     {
       return;
     }   
-
+    
     setIsDisabled(true) 
+
     if (orderData.producto === productosAdidas[0]) {
       orderData.precio = preciosAdidas[0];
       orderData.precioAcumulado += (orderData.precio * orderData.cantidad)

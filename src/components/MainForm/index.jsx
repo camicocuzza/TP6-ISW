@@ -242,6 +242,8 @@ const MainForm = () => {
     setArrayNoVacio(false);
     setPrecioAcumulado(0);
     setAmount('')
+    setOrderData(initialOrderData)
+    orderData.carrito=[]
 
   };
 
@@ -252,6 +254,7 @@ const MainForm = () => {
           <>
             <Grid container direction="column" alignItems="center" justify="center">
               <Grid item>
+                <br></br><br></br>
                 <Typography variant="h5" align="center" gutterBottom>
                   ¡Gracias por realizar tu pedido!
                 </Typography>
@@ -265,6 +268,7 @@ const MainForm = () => {
                 </Typography>
               </Grid>
             </Grid>
+            <br></br>
             <div className={classes.buttons}>
               <Button onClick={() => handleOtroPedido()} className={classes.button}>
                 Realizar otro pedido
