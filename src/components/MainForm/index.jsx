@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import { Typography, Stepper, StepLabel, Step, Button, Grid, StepContent } from '@material-ui/core';
+import { Typography, Stepper, StepLabel, Step, Button, Grid, StepContent } from '@mui/material';
 import * as yup from 'yup';
 import { useFormik } from 'formik';
 import OrderData from './Steppers/OrderData';
@@ -71,7 +71,7 @@ const steps = ['Datos del Pedido', 'Dirección del Pedido', 'Método de Pago', '
 
 const validationSchema = [
   yup.object().shape({
-    comercio: yup.string(),
+    comercio: yup.string().required("Seleccione un comercio"),
     producto: yup.string(),
     cantidad: yup.number().positive("Debe ser un numero positivo").integer("Debe ser un numero entero"),
   }),
@@ -276,11 +276,14 @@ const MainForm = () => {
                     <>
                       <form onSubmit={handleSubmit}>
                         {getStepContent(activeStep)}
+                        <br/>
                         <div className={classes.buttons}>
                           {activeStep !== 0 && (
+                            <>
                             <Button onClick={handleBack} className={classes.button}>
                               Atras
                             </Button>
+                            </>
                           )}
                           <Button
                             type="submit"

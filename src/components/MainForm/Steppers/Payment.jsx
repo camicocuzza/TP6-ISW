@@ -6,15 +6,14 @@ import {
   InputLabel,
   Select,
   MenuItem,
-  InputAdornment,
   useTheme,
-} from '@material-ui/core';
+} from '@mui/material';
 import { makeStyles } from '@material-ui/core/styles';
 import MaskedInput from 'react-text-mask';
 import createAutoCorrectedDatePipe from 'text-mask-addons/dist/createAutoCorrectedDatePipe';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMoneyBillAlt, faCreditCard } from '@fortawesome/free-solid-svg-icons';
-import { faCcVisa } from '@fortawesome/free-brands-svg-icons';
+import { faCcVisa, faCcMastercard } from '@fortawesome/free-brands-svg-icons';
 import PropTypes from 'prop-types';
 
 const useStyles = makeStyles((theme) => ({
@@ -37,7 +36,7 @@ const VisaMask = (props) => {
         inputRef(ref ? ref.inputElement : null);
       }}
       mask={[
-        /4/,
+        /[4-5]/,
         /\d/,
         /\d/,
         /\d/,
@@ -108,9 +107,9 @@ const Payment = ({ orderData, handleChange, errors, touched,setAmount,amount }) 
   const theme = useTheme();
   const classes = useStyles();
  
-  const handleChangeAmount = (e) =>{
-    setAmount(e.target.value)
-  }
+  // const handleChangeAmount = (e) =>{
+  //   setAmount(e.target.value)
+  // }
 
   return (
     <>
@@ -180,7 +179,7 @@ const Payment = ({ orderData, handleChange, errors, touched,setAmount,amount }) 
               id="cardNumber"
               error={touched.cardNumber && Boolean(errors.cardNumber)}
               label="Número de tarjeta"
-              helperText="4XXX XXXX XXXX XXXX"
+              helperText="XXXX XXXX XXXX XXXX"
               onChange={handleChange}
               value={orderData.cardNumber}
               fullWidth
@@ -189,6 +188,7 @@ const Payment = ({ orderData, handleChange, errors, touched,setAmount,amount }) 
               }}
             />
             <FontAwesomeIcon size="2x" icon={faCcVisa} color={theme.palette.secondary.main} />
+            <FontAwesomeIcon size="2x" icon={faCcMastercard} color={theme.palette.secondary.main} />
           </Grid>
           <Grid item xs={12} md={6}>
             <TextField
@@ -234,20 +234,7 @@ const Payment = ({ orderData, handleChange, errors, touched,setAmount,amount }) 
       ) : (
         <Grid container spacing={3}>
           <Grid item xs={12} md={6}>
-            <TextField
-              id="amount"
-              name="amount"
-              label="Monto con el que va a pagar"
-              type="number"
-             // error={touched.amount && Boolean(errors.amount)}
-              onChange={handleChangeAmount}
-              value={amount}
-              fullWidth
-              InputProps={{
-                startAdornment: <InputAdornment position="start">$</InputAdornment>,
-                min: '0',
-              }}
-            />
+           Se realizará el cobro cuando se entregue el pedido a domicilio.
           </Grid>
         </Grid>
       )}
