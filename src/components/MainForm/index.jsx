@@ -69,79 +69,79 @@ const initialOrderData = {
 
 const steps = ['Datos del Pedido', 'Dirección del Pedido', 'Método de Pago', 'Resumen'];
 
-const validationSchema = [
-  yup.object().shape({
-    comercio: yup.string().required("Seleccione un comercio"),
-    producto: yup.string(),
-    cantidad: yup.number().positive("Debe ser un numero positivo").min(1).integer("Debe ser un numero entero"),
-  }),
-  yup.object().shape({
-    addressDelivery: yup.string().min(1, 'Ingrese número válido').required("Debe colocar una calle."),
-    numberDelivery: yup.number().required("Debe colocar número."),
-    cityDelivery: yup.string().required("Debe seleccionar una ciudad."),
-    referenceDelivery: yup.string(),
-    immediately: yup.boolean(),
-    date: yup.date().when('immediately', {
-      is: false,
-      then: yup.date().min(new Date(), "La fecha y hora deben ser mayores a la fecha y hora actuales.").required(),
-    }),
-  }),
-  yup.object().shape({
-    cash: yup.boolean().required(),
-    // amount: yup.string().required('El monto es requerido'),
-    amount: yup.number().when('cash', {
-      is: true,
-      then: yup.number().min(1000).required('El monto es requerido'),
-    }),
-    cardNumber: yup.string().when('cash', {
-      is: false,
-      then: yup.string().required().length(19),
-    }),
-    cardName: yup.string().when('cash', {
-      is: false,
-      then: yup.string().required(),
-    }),
-    expDate: yup.string().when('cash', {
-      is: false,
-      then: yup
-        .string()
-        .test('is-exp-date', 'Error en la fecha', (value) => {
-          if (value) {
-            const month = Number(value.substr(0, 2));
-            const year = Number(value.substr(value.length - 2));
-            const currentYear = Number(new Date().getFullYear().toString().substr(2));
-            const currentMonth = Number((new Date().getMonth() + 1).toString());
+// const validationSchema = [
+//   yup.object().shape({
+//     comercio: yup.string().required("Seleccione un comercio"),
+//     producto: yup.string(),
+//     cantidad: yup.number().positive("Debe ser un numero positivo").min(1).integer("Debe ser un numero entero"),
+//   }),
+//   yup.object().shape({
+//     addressDelivery: yup.string().min(1, 'Ingrese número válido').required("Debe colocar una calle."),
+//     numberDelivery: yup.number().required("Debe colocar número."),
+//     cityDelivery: yup.string().required("Debe seleccionar una ciudad."),
+//     referenceDelivery: yup.string(),
+//     immediately: yup.boolean(),
+//     date: yup.date().when('immediately', {
+//       is: false,
+//       then: yup.date().min(new Date(), "La fecha y hora deben ser mayores a la fecha y hora actuales.").required(),
+//     }),
+//   }),
+//   yup.object().shape({
+//     cash: yup.boolean().required(),
+//     // amount: yup.string().required('El monto es requerido'),
+//     amount: yup.number().when('cash', {
+//       is: true,
+//       then: yup.number().min(1000).required('El monto es requerido'),
+//     }),
+//     cardNumber: yup.string().when('cash', {
+//       is: false,
+//       then: yup.string().required().length(19),
+//     }),
+//     cardName: yup.string().when('cash', {
+//       is: false,
+//       then: yup.string().required(),
+//     }),
+//     expDate: yup.string().when('cash', {
+//       is: false,
+//       then: yup
+//         .string()
+//         .test('is-exp-date', 'Error en la fecha', (value) => {
+//           if (value) {
+//             const month = Number(value.substr(0, 2));
+//             const year = Number(value.substr(value.length - 2));
+//             const currentYear = Number(new Date().getFullYear().toString().substr(2));
+//             const currentMonth = Number((new Date().getMonth() + 1).toString());
 
-            if (year > currentYear) {
-              return true;
-            }
-            if (year === currentYear && month >= currentMonth) {
-              return true;
-            }
-          }
-          return false;
-        })
-        .length(5)
-        .required(),
-    }),
-    cvv: yup.string().when('cash', {
-      is: false,
-      then: yup
-        .string()
-        .test('is-cvv', 'Error cvv', (value) => {
-          if (value && (value.length === 3 || value.length === 4)) {
-            return true;
-          }
-          return false;
-        })
-        .required(),
-    }),
-    dni: yup.string().when('cash', {
-      is: false,
-      then: yup.string().required(),
-    }),
-  }),
-];
+//             if (year > currentYear) {
+//               return true;
+//             }
+//             if (year === currentYear && month >= currentMonth) {
+//               return true;
+//             }
+//           }
+//           return false;
+//         })
+//         .length(5)
+//         .required(),
+//     }),
+//     cvv: yup.string().when('cash', {
+//       is: false,
+//       then: yup
+//         .string()
+//         .test('is-cvv', 'Error cvv', (value) => {
+//           if (value && (value.length === 3 || value.length === 4)) {
+//             return true;
+//           }
+//           return false;
+//         })
+//         .required(),
+//     }),
+//     dni: yup.string().when('cash', {
+//       is: false,
+//       then: yup.string().required(),
+//     }),
+//   }),
+// ];
 const MainForm = () => {
   const classes = useStyles();
   const [activeStep, setActiveStep] = useState(0);
@@ -150,6 +150,79 @@ const MainForm = () => {
   const [amount, setAmount] = useState();
   const [orderData, setOrderData] = useState(initialOrderData);
 
+  const validationSchema = [
+    yup.object().shape({
+      comercio: yup.string().required("Seleccione un comercio"),
+      producto: yup.string(),
+      cantidad: yup.number().positive("Debe ser un numero positivo").min(1).integer("Debe ser un numero entero"),
+    }),
+    yup.object().shape({
+      addressDelivery: yup.string().min(1, 'Ingrese número válido').required("Debe colocar una calle."),
+      numberDelivery: yup.number().required("Debe colocar número."),
+      cityDelivery: yup.string().required("Debe seleccionar una ciudad."),
+      referenceDelivery: yup.string(),
+      immediately: yup.boolean(),
+      date: yup.date().when('immediately', {
+        is: false,
+        then: yup.date().min(new Date(), "La fecha y hora deben ser mayores a la fecha y hora actuales.").required(),
+      }),
+    }),
+    yup.object().shape({
+      cash: yup.boolean().required(),
+      // amount: yup.string().required('El monto es requerido'),
+      amount: yup.number().when('cash', {
+        is: true,
+        then: yup.number().min(precioAcumulado+500,'No le alcanza para pagar (mínimo $' + parseInt(precioAcumulado+500) + ')').required('El monto es requerido'),
+      }),
+      cardNumber: yup.string().when('cash', {
+        is: false,
+        then: yup.string().required().length(19),
+      }),
+      cardName: yup.string().when('cash', {
+        is: false,
+        then: yup.string().required(),
+      }),
+      expDate: yup.string().when('cash', {
+        is: false,
+        then: yup
+          .string()
+          .test('is-exp-date', 'Error en la fecha', (value) => {
+            if (value) {
+              const month = Number(value.substr(0, 2));
+              const year = Number(value.substr(value.length - 2));
+              const currentYear = Number(new Date().getFullYear().toString().substr(2));
+              const currentMonth = Number((new Date().getMonth() + 1).toString());
+  
+              if (year > currentYear) {
+                return true;
+              }
+              if (year === currentYear && month >= currentMonth) {
+                return true;
+              }
+            }
+            return false;
+          })
+          .length(5)
+          .required(),
+      }),
+      cvv: yup.string().when('cash', {
+        is: false,
+        then: yup
+          .string()
+          .test('is-cvv', 'Error cvv', (value) => {
+            if (value && (value.length === 3 || value.length === 4)) {
+              return true;
+            }
+            return false;
+          })
+          .required(),
+      }),
+      dni: yup.string().when('cash', {
+        is: false,
+        then: yup.string().required(),
+      }),
+    }),
+  ];
   const handleSelectedDate = (e) => {
     setOrderData((prevState) => ({ ...prevState, date: e }));
     console.log(orderData);
