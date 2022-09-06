@@ -107,10 +107,7 @@ CVVMask.propTypes = {
 const Payment = ({ orderData, handleChange, errors, touched,setAmount,amount }) => {
   const theme = useTheme();
   const classes = useStyles();
-  const handleChangeAmount = (e) =>{
-    setAmount(e.target.value)
-    console.log(amount)
-  }
+  
   return (
     <>
       <Typography variant="h6" gutterBottom>
@@ -167,6 +164,7 @@ const Payment = ({ orderData, handleChange, errors, touched,setAmount,amount }) 
               id="cardName"
               name="cardName"
               error={touched.cardName && Boolean(errors.cardName)}
+              helperText={touched.cardName && errors.cardName}
               label="Nombre y apellido del titular"
               value={orderData.cardName}
               onChange={handleChange}
@@ -178,6 +176,7 @@ const Payment = ({ orderData, handleChange, errors, touched,setAmount,amount }) 
               name="cardNumber"
               id="cardNumber"
               error={touched.cardNumber && Boolean(errors.cardNumber)}
+              helperText={touched.cardNumber && errors.cardNumber}
               label="Número de tarjeta"
               placeholder="XXXX XXXX XXXX XXXX"
               onChange={handleChange}
@@ -195,6 +194,7 @@ const Payment = ({ orderData, handleChange, errors, touched,setAmount,amount }) 
               id="expDate"
               name="expDate"
               error={touched.expDate && Boolean(errors.expDate)}
+              helperText={touched.expDate && errors.expDate}
               label="Fecha de expiración"
               fullWidth
               onChange={handleChange}
@@ -210,7 +210,8 @@ const Payment = ({ orderData, handleChange, errors, touched,setAmount,amount }) 
               name="cvv"
               label="CVV"
               error={touched.cvv && Boolean(errors.cvv)}
-              helperText="Código de seguridad"
+              helperText={touched.cvv && errors.cvv}
+              placeholder="Código de seguridad"
               onChange={handleChange}
               value={orderData.cvv}
               fullWidth
@@ -224,6 +225,7 @@ const Payment = ({ orderData, handleChange, errors, touched,setAmount,amount }) 
               id="dni"
               name="dni"
               error={touched.dni && Boolean(errors.dni)}
+              helperText={touched.dni && errors.dni}
               label="DNI del titular"
               onChange={handleChange}
               value={orderData.dni}
