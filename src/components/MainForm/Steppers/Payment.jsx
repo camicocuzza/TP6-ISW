@@ -107,7 +107,7 @@ CVVMask.propTypes = {
 const Payment = ({ orderData, handleChange, errors, touched,setAmount,amount }) => {
   const theme = useTheme();
   const classes = useStyles();
-  
+
   return (
     <>
       <Typography variant="h6" gutterBottom>
@@ -253,15 +253,7 @@ const Payment = ({ orderData, handleChange, errors, touched,setAmount,amount }) 
             />
 
           </Grid>
-           {amount < (orderData.precioAcumulado+orderData.precioServicio) ?(
-       <Grid container spacing={3}>
-         <Grid item xs={12} md={6}>
-         <Typography variant="h7" gutterBottom className={classes.title}>
-           No le alcanza para pagar. Coloque un monto mayor.
-        </Typography>
-         </Grid>
-        </Grid>
-      ):(null)}
+           
         </Grid>
         
       )}

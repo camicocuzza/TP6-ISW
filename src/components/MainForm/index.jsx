@@ -43,7 +43,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 const oldDate = new Date();
-const newDate = new Date(oldDate.setMinutes(oldDate.getMinutes() + 30)) ;
+const newDate = new Date(oldDate.setMinutes(oldDate.getMinutes() + 60)) ;
 
 const initialOrderData = {
   comercio: '',
