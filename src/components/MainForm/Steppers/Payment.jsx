@@ -6,8 +6,9 @@ import {
   InputLabel,
   Select,
   MenuItem,
+  InputAdornment,
   useTheme,
-} from '@mui/material';
+} from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import MaskedInput from 'react-text-mask';
 import createAutoCorrectedDatePipe from 'text-mask-addons/dist/createAutoCorrectedDatePipe';
@@ -107,9 +108,9 @@ const Payment = ({ orderData, handleChange, errors, touched,setAmount,amount }) 
   const theme = useTheme();
   const classes = useStyles();
  
-  // const handleChangeAmount = (e) =>{
-  //   setAmount(e.target.value)
-  // }
+  const handleChangeAmount = (e) =>{
+    setAmount(e.target.value)
+  }
 
   return (
     <>
@@ -141,7 +142,7 @@ const Payment = ({ orderData, handleChange, errors, touched,setAmount,amount }) 
             value={orderData.cash}
             onChange={handleChange}
           >
-            <MenuItem value={true}>
+            <MenuItem value>
               <FontAwesomeIcon
                 style={{ marginRight: 5 }}
                 icon={faMoneyBillAlt}
