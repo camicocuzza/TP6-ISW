@@ -178,7 +178,7 @@ const OrderData = ({ orderData, handleChange, touched, errors, setFieldValue, ar
 
             <Grid item xs={12}>
               <Button
-                type="submit"
+                type="button"
                 variant="contained"
                 color="primary"
                 className={classes.button}
@@ -284,8 +284,6 @@ const OrderData = ({ orderData, handleChange, touched, errors, setFieldValue, ar
                 Agregar al carrito
               </Button>
             </Grid>
-
-
           </>
         ) : (null)}
         {orderData.precioAcumulado > 0 ? (

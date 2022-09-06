@@ -52,7 +52,7 @@ const Review = ({ orderData, amount }) => {
             Tipo de entrega
           </Typography>
           {orderData.immediately ? (
-            <Typography gutterBottom>Lo antes Posible</Typography>
+            <Typography gutterBottom>Lo antes posible</Typography>
           ) : (
             <>
               <Typography gutterBottom>Programada</Typography>
@@ -69,12 +69,15 @@ const Review = ({ orderData, amount }) => {
           {orderData.cash ? (
             <>
               <Typography gutterBottom>{`Efectivo`}</Typography>
-              {/* <Typography gutterBottom>{`Vuelto: $${amount - (orderData.precioAcumulado+orderData.precioServicio)}`}</Typography> */}
+              <Typography gutterBottom>{`Paga con: $${orderData.amount}`}</Typography>
+              <Typography gutterBottom>{`Vuelto: $${orderData.amount - (orderData.precioAcumulado+orderData.precioServicio)}`}</Typography>
             </>
           ) : (
             <>
               <Typography gutterBottom>Tarjeta de Crédito</Typography>
+              
               <Typography gutterBottom>{`Titular: ${orderData.cardName}`}</Typography>
+              
               <Typography gutterBottom>
                 {`Número: XXXX-XXXX-XXXX-${orderData.cardNumber.substr(
                   orderData.cardNumber.length - 4,
@@ -86,6 +89,8 @@ const Review = ({ orderData, amount }) => {
                 )}
               </Typography>
               <Typography gutterBottom>{`Fecha de Vencimiento: ${orderData.expDate}`}</Typography>
+              <br></br>
+
             </>
 
           )}
