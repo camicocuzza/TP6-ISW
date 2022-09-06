@@ -73,10 +73,10 @@ const validationSchema = [
   yup.object().shape({
     comercio: yup.string().required("Seleccione un comercio"),
     producto: yup.string(),
-    cantidad: yup.number().positive("Debe ser un numero positivo").integer("Debe ser un numero entero"),
+    cantidad: yup.number().positive("Debe ser un numero positivo").min(1).integer("Debe ser un numero entero"),
   }),
   yup.object().shape({
-    addressDelivery: yup.string().required("Debe colocar una calle."),
+    addressDelivery: yup.string().min(1, 'Ingrese número válido').required("Debe colocar una calle."),
     numberDelivery: yup.number().required("Debe colocar número."),
     cityDelivery: yup.string().required("Debe seleccionar una ciudad."),
     referenceDelivery: yup.string(),
@@ -88,10 +88,11 @@ const validationSchema = [
   }),
   yup.object().shape({
     cash: yup.boolean().required(),
-    // amount: yup.number().when('cash', {
-    //   is: true,
-    //   then: yup.number().min(0).required(),
-    // }),
+    // amount: yup.string().required('El monto es requerido'),
+    amount: yup.number().when('cash', {
+      is: true,
+      then: yup.number().min(1000).required('El monto es requerido'),
+    }),
     cardNumber: yup.string().when('cash', {
       is: false,
       then: yup.string().required().length(19),

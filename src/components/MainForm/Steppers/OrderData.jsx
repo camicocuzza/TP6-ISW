@@ -35,11 +35,16 @@ const OrderData = ({ orderData, handleChange, touched, errors, setFieldValue, ar
   }, [arrayNoVacio]);
 
   const agregarAlCarrito = () => {
+    if(orderData.cantidad < 1)
+    {
+      // alert('Ingrese cantidad válida')
+      return;
+    }
     if(orderData.producto === "")
     {
       return;
     }   
-    
+
     setIsDisabled(true) 
 
     if (orderData.producto === productosAdidas[0]) {
@@ -173,7 +178,7 @@ const OrderData = ({ orderData, handleChange, touched, errors, setFieldValue, ar
 
             <Grid item xs={12}>
               <Button
-                type="button"
+                type="submit"
                 variant="contained"
                 color="primary"
                 className={classes.button}

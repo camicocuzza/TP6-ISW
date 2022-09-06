@@ -7,6 +7,7 @@ import {
   Select,
   MenuItem,  
   useTheme,
+  InputAdornment
 } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import MaskedInput from 'react-text-mask';
@@ -106,7 +107,10 @@ CVVMask.propTypes = {
 const Payment = ({ orderData, handleChange, errors, touched,setAmount,amount }) => {
   const theme = useTheme();
   const classes = useStyles();
-
+  const handleChangeAmount = (e) =>{
+    setAmount(e.target.value)
+    console.log(amount)
+  }
   return (
     <>
       <Typography variant="h6" gutterBottom>
@@ -230,14 +234,24 @@ const Payment = ({ orderData, handleChange, errors, touched,setAmount,amount }) 
       ) : (
         <Grid container spacing={3}>
           <Grid item xs={12} md={6}>
-          <Typography component="h7" variant="h7" align="center" gutterBottom>
-          Se realizará el cobro a domicilio.
-            </Typography>
-           
+            <TextField
+              id="amount"
+              name="amount"
+              label="Monto con el que va a pagar"
+              type="number"
+             error={touched.amount && Boolean(errors.amount)}
+             helperText={touched.amount && errors.amount}
+              onChange={handleChange}
+              value={orderData.amount}
+              fullWidth
+              InputProps={{
+                startAdornment: <InputAdornment position="start">$</InputAdornment>,
+                min: '0',
+              }}
+            />
+
           </Grid>
-        </Grid>
-      )}
-      {/* {amount < (orderData.precioAcumulado+orderData.precioServicio) ?(
+           {amount < (orderData.precioAcumulado+orderData.precioServicio) ?(
        <Grid container spacing={3}>
          <Grid item xs={12} md={6}>
          <Typography variant="h7" gutterBottom className={classes.title}>
@@ -245,7 +259,11 @@ const Payment = ({ orderData, handleChange, errors, touched,setAmount,amount }) 
         </Typography>
          </Grid>
         </Grid>
-      ):(null)} */}
+      ):(null)}
+        </Grid>
+        
+      )}
+     
     </>
   );
 };
