@@ -16,6 +16,7 @@ const useStyles = makeStyles((theme) => ({
 const Review = ({ orderData, amount }) => {
   const theme = useTheme();
   const classes = useStyles();
+   /* ------------- Resumen del pedido ------------ */
   return (
     <>
       <Typography variant="h5" gutterBottom>

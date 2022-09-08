@@ -107,7 +107,7 @@ CVVMask.propTypes = {
 const Payment = ({ orderData, handleChange, errors, touched,setAmount,amount }) => {
   const theme = useTheme();
   const classes = useStyles();
-
+ /* -------------metodos de pago --------------------- */
   return (
     <>
       <Typography variant="h6" gutterBottom>

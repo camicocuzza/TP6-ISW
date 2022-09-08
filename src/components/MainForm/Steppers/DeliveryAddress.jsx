@@ -27,6 +27,7 @@ const useStyles = makeStyles((theme) => ({
 
 const DeliveryAddress = ({orderData,handleChange,setFieldValue,touched,errors}) => {
   const classes = useStyles();
+  /* Datos de entrega (direción, fecha de entrega,etc) */
   return (
     <>
       <Typography variant="h6" style={{ marginTop: 10 }} gutterBottom>

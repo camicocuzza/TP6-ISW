@@ -3,8 +3,9 @@ import { Typography, Grid, TextField, InputLabel, MenuItem, Button } from '@mui/
 import { makeStyles } from '@material-ui/core/styles';
 import { PropTypes } from 'prop-types';
 
+/* datos de los comercios adheridos */
 export const comercios = ['Adidas', '47street', 'Oaxaca'];
-export const productosAdidas = ['questar flow', 'nmd_r1', 'hoops 2.0', 'daily 3.0'];
+export const productosAdidas = ['Zapatillas', 'Conjunto deportivo', 'camiseta', 'short deportivo'];
 export const productos47Street = ['Campera Berlin', 'Campera E. kala', 'Canguro basic relax'];
 export const productosOaxaca = ['Tacos', 'Lomos 2x1', 'Fajitas', 'Chidas', 'Nacho Oaxaca'];
 export const preciosAdidas = [4500, 5000, 5500, 7000];
